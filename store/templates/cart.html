@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+{% load cart %}
+<div class="container">
+    <div class="border rounded p-4 m-4">
+    
+    {% comment %} {{products}} {% endcomment %}
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Serial No.</th>
+                <th>Product Name</th>
+                <th>Product Image</th>
+                <th>Base Price</th>
+                <th>Borrow Price</th>
+                <th>Quantity</th>
+                <th>Total Base Price</th>
+                <th>Total Borrow Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in products %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{item.name}}</td>
+                <td><img style="height: 50px;" src="{{item.image.url}}" class="rounded-circle" alt=""></td>
+                <td>{{item.base_price|currency}}</td>
+                <td>{{item.borrow_price|currency}}</td>
+                <td>{{item|cart_quantity:request.session.cart}}</td>
+                <td>{{item|total_base_price:request.session.cart|currency}}</td>
+                <td>{{item|total_borrow_price:request.session.cart|currency}}</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th colspan="5">In Total:</th>
+                <th>{{products|in_total:request.session.cart|currency}}</th>
+            </tr>
+
+        </tfoot>
+    </table>
+     {% if request.session.cart.keys|length == 0 %}
+    <div class="m-3 p-3">
+        
+    </div>
+    {% else %}
+      <div class="m-3 p-3">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+        class="btn btn-primary btn-block mb-2 float-right">Check Out</a>
+    </div>
+    {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order Placement</h5>
+        <hr>
+        {% comment %} <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> {% endcomment %}
+      </div>
+      <div class="modal-body">
+        <div class = "m-2 p-3">
+            <form method="post" action= "{% url 'checkout' %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="">Address</label>
+              <input type="text" name="address" required id="" class="form-control" placeholder="" aria-describedby="helpId">
+          
+            </div>
+            <div class="form-group">
+              <label for="">Phone</label>
+              <input type="text" name="phone" required id="" class="form-control" placeholder="" aria-describedby="helpId">
+              
+            </div>
+                <hr>
+            <input type="submit" class="btn float-right btn-primary" value="Order">
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<div class="container">
+  <div class="p-4 m-4">
+    <div class="col-lg-5 mx-auto">
+      <h3 class="alert alert-light">Create an Account</h3>
+      {% if error%}
+      <h4> {{error}} </h4>
+      {% endif %}
+
+      <form method="POST" action="{% url 'signup' %}">
+      {% csrf_token %}
+{% comment %} 
+      <!-- Email input -->
+  <div class="form-outline mb-4">
+    <input type="email" id="form3Example3" class="form-control" />
+    <label class="form-label" for="form3Example3">Email address</label>
+  </div> {% endcomment %}
+
+      <!---User Name---->
+      <div class="form-outline mb-4">
+          <label for="">User Name</label>
+          <input required type="text" name="username" id=""
+            class="form-control" placeholder="adelle"/>
+        </div>
+        <!----First Name----->
+        <div class="form-outline mb-4">
+          <label for="">First Name</label>
+          <input required type="text" name="firstname" id=""
+            class="form-control" placeholder="Adolas"/>
+        </div>
+          <!---Last Name---->
+        <div class="form-outline mb-4">
+          <label for="">Last Name</label>
+          <input required type="text" name="lastname" id=""
+            class="form-control" placeholder="Papadolus"/>
+        </div>
+
+          <!---Email---->
+        <div class="form-outline mb-4">
+          <label for="">Email</label>
+          <input required type="email" name="email" id=""
+            class="form-control" placeholder="toolsharing@gmail.com"/>
+        </div>
+
+           <!---Password---->
+        <div class="form-outline mb-4">
+          <label for="">Password</label>
+          <input required type="password" name="password" id=""
+            class="form-control" placeholder="*********"/>
+        </div>
+
+         <!---Password---->
+        <div class="form-outline mb-4">
+          <label for="">Confrim Password</label>
+          <input required type="password" name="confrimpassword" id=""
+            class="form-control" placeholder="*********"/>
+        </div>
+
+          <!---NID---->
+        <div class="form-outline mb-4">
+          <label for="">NID or Birth Certificate</label>
+          <input required type="text" name="nid" id=""
+            class="form-control" placeholder="1234567890"/>
+        </div>
+
+        <!---AGE------>
+        <div class="form-outline mb-4">
+          <label for="">Age</label>
+          <input type="text" name="age" id=""
+            class="form-control" placeholder="22"/>
+        </div>
+
+          <!---Address---->
+        <div class="form-outline mb-4">
+          <label for="">Address</label>
+          <input required type="text" name="address" id=""
+            class="form-control" placeholder="Ervin Street"/>
+        </div>
+
+          <!---Phone No---->
+        <div class="form-outline mb-4">
+          <label for="">Phone No.</label>
+          <input required type="text" name="phone" id=""
+            class="form-control" placeholder="0123456789"/>
+        </div> 
+
+          <!---Profession---->
+        <div class="form-outline mb-4">
+          <label for="">Profession</label>
+          <input type="text" name="profession" id=""
+            class="form-control" placeholder="Doc or Eng"/>
+        </div>
+
+
+          <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
+
+        {% comment %} <div class="form-outline mb-4">
+          <input class= "btn btn-sm btn-info" type="submit" name="Submit" id="" class="form-control" placeholder="" aria-describedby="helpId">
+          </div> {% endcomment %}
+          <div class="form-outline mb-4">
+
+  <a href="{% url 'signin' %}">Try Loggin</a>
+  </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

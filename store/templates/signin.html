@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+<div class="p-4 m-4">
+<div class="col-lg-5 mx-auto">
+    <h3 class="alert alert-light">Please Log In</h3>
+    {% if error%}
+    <h4> {{error}} </h4>
+    {% endif %}
+
+<form method="POST" action="{% url 'signin' %}">
+    {% csrf_token %}
+
+
+  <!-- User Name input -->
+
+   <div class="form-outline mb-4">
+          <label for="">User Name</label>
+          <input type="text" name="username" id=""
+            class="form-control" placeholder="adelle"/>
+        </div>
+
+    <!---Password---->
+        <div class="form-outline mb-4">
+          <label for="">Password</label>
+          <input type="password" name="password" id=""
+            class="form-control" placeholder="*********"/>
+        </div>
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block mb-4">Sign In</button>
+
+    <div class="form-outline mb-4">
+
+  <a href="{% url 'signup' %}">Create An Account</a>
+  </div>
+
+</form>
+</div>
+</div>
+</div>
+
+{% endblock %}
